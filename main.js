@@ -14,14 +14,20 @@ let radiobtn = document.querySelectorAll('.w-radio');
             Katlego:'kat',
             Lesedi: 'lesedi'
         };
+        const imageUrls = {
+          lerato: "https://cdn.prod.website-files.com/696f71293b9af01fb672ff8b/69a85cb583261bccbdf63eb5_elo.jpg",
+          ayanda: "https://cdn.prod.website-files.com/696f71293b9af01fb672ff8b/69a85cb6c5a41a97bfb8247f_Aya.png",
+          sim: "https://cdn.prod.website-files.com/696f71293b9af01fb672ff8b/69a85cb5896172322cd07eb2_sim.jpg",
+          kat: "https://cdn.prod.website-files.com/696f71293b9af01fb672ff8b/69a85cb6fce8b63d6648cbbb_kat.png",
+          lesedi: "https://cdn.prod.website-files.com/696f71293b9af01fb672ff8b/698581d200832bbd823a4e69_001b.png.jpg"
+        };
         radiobtn.forEach(e => {
             e.addEventListener('mouseover', () => {
                 const memberId = e.id; 
                 const targetImgNumber = memberMap[memberId];
                 
                 mask.setAttribute('data-background-image', memberId);
-                    console.log(mask)
-                init(mask)
+                init(imageUrls[memberId])
                 images.forEach(img => img.classList.add('hidden'));
                 if (imageMap[targetImgNumber]) {
                 imageMap[targetImgNumber].classList.remove('hidden');
@@ -29,9 +35,9 @@ let radiobtn = document.querySelectorAll('.w-radio');
                 })
                 })
 function init(mask) {
-  console.log(mask)
-    const bg = window.getComputedStyle(mask).backgroundImage;
-        console.log(mask)
+  
+    // const bg = window.getComputedStyle(mask).backgroundImage;
+    const bg=mask;
     if (!bg) return;
 
     const imageSrc = bg.replace(/url\(["']?/, "").replace(/["']?\)$/, "");
@@ -39,8 +45,8 @@ function init(mask) {
     const canvas = document.createElement("canvas");
     canvas.style.width = "100%";
     canvas.style.height = "100%";
-    item.appendChild(canvas);
-    item.style.backgroundImage = "none";
+    mask.appendChild(canvas);
+    mask.style.backgroundImage = "none";
 
     let time = 0;
     let rippleStrength = 0;
@@ -152,5 +158,5 @@ function init(mask) {
     s.onload = init;
     document.body.appendChild(s);
   } else {
-    init(mask);
+    init(imageUrls.lerato);
   }   
