@@ -1,38 +1,58 @@
-function init() {
-    //selector
-    let radiobtn = document.querySelectorAll('.cook-name');
-        let mask = document.querySelector('.masked-image');
-        let images=[...document.getElementsByClassName('member-bg-image')]
-        const styleTag = document.createElement('style');
-        document.head.appendChild(styleTag);
-        const sheet = styleTag.sheet;
-        sheet.insertRule('.hidden { display: none; }', 0);
-        const imageMap = {}
-        images.forEach(img => {
-            imageMap[img.dataset.memberBg] = img;
-            if(img.getAttribute('data-member-bg')=='1')return
-            img.classList.add('hidden')
-        });
-        const memberMap = {
-            Lerato: '1',
-            Ayanda: '2',
-            SIMLET: '3',
-            Katlego:'5',
-            Lesedi: '4'
-        };
-        radiobtn.forEach(e => {
-            e.addEventListener('mouseover', () => {
-                const memberId = e.id; 
-                const targetImgNumber = memberMap[memberId];
-                console.log(memberId)
-                mask.setAttribute('data-background-image', memberId);
-                images.forEach(img => img.classList.add('hidden'));
-                if (imageMap[targetImgNumber]) {
+window.addEventListener("load", () => {
+
+    // ✅ create style safely
+    const styleTag = document.createElement("style");
+    styleTag.textContent = `
+        .hidden {
+            display: none !important;
+        }
+    `;
+    document.head.appendChild(styleTag);
+
+
+    let radiobtn = document.querySelectorAll('.w-radio');
+    let mask = document.querySelector('.masked-image');
+    let images = [...document.getElementsByClassName('member-bg-image')];
+
+    const imageMap = {};
+
+    images.forEach(img => {
+        imageMap[img.dataset.memberBg] = img;
+
+        if (img.getAttribute('data-member-bg') == '1') return;
+
+        img.classList.add('hidden');
+    });
+
+    const memberMap = {
+        Lerato: '1',
+        Ayanda: '2',
+        SIMLET: '3',
+        Katlego: '5',
+        Lesedi: '4'
+    };
+
+    radiobtn.forEach(e => {
+        e.addEventListener('mouseover', () => {
+
+            const memberId = e.id;
+            const targetImgNumber = memberMap[memberId];
+
+            mask.setAttribute('data-background-image', memberId);
+
+            images.forEach(img => img.classList.add('hidden'));
+
+            if (imageMap[targetImgNumber]) {
                 imageMap[targetImgNumber].classList.remove('hidden');
-                }
-                })
-                })
-    
+            }
+
+        });
+    });
+
+});
+
+function init() {
+
     document.querySelectorAll(".masked-image").forEach((item) => {
       
     const bg = window.getComputedStyle(item).backgroundImage;
