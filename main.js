@@ -18,8 +18,9 @@ let radiobtn = document.querySelectorAll('.w-radio');
             e.addEventListener('mouseover', () => {
                 const memberId = e.id; 
                 const targetImgNumber = memberMap[memberId];
-                console.log(memberId)
+                
                 mask.setAttribute('data-background-image', memberId);
+                    console.log(mask)
                 init(mask)
                 images.forEach(img => img.classList.add('hidden'));
                 if (imageMap[targetImgNumber]) {
