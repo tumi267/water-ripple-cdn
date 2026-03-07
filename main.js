@@ -167,5 +167,5 @@ console.log(imageSrc)
     s.onload = init;
     document.body.appendChild(s);
   } else {
-    init(imageUrls.lerato);
+    init(imageUrls.Lerato);
   }   
