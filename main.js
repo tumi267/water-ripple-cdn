@@ -1,3 +1,35 @@
+let radiobtn = document.querySelectorAll('.w-radio');
+        let mask = document.querySelector('.masked-image');
+        let images=[...document.getElementsByClassName('member-bg-image')]
+        const styleTag = document.createElement('style');
+        document.head.appendChild(styleTag);
+        const sheet = styleTag.sheet;
+        sheet.insertRule('.hidden { display: none; }', 0);
+        const imageMap = {}
+        images.forEach(img => {
+            imageMap[img.dataset.memberBg] = img;
+            if(img.dataset.memberBg === 'lerato') return
+            img.classList.add('hidden')
+        });
+        const memberMap = {
+            Lerato: 'lerato',
+            Ayanda: 'ayanda',
+            SIMLET: 'sim',
+            Katlego: 'kat',
+            Lesedi: 'lesedi'
+        };
+        radiobtn.forEach(e => {
+            e.addEventListener('mouseover', () => {
+                const memberId = e.id; 
+                const targetImgNumber = memberMap[memberId];
+                console.log(memberId)
+                mask.setAttribute('data-background-image', memberId);
+                images.forEach(img => img.classList.add('hidden'));
+                if (imageMap[targetImgNumber]) {
+                imageMap[targetImgNumber].classList.remove('hidden');
+                }
+                })
+                })
 function init() {
 
     document.querySelectorAll(".masked-image").forEach((item) => {
