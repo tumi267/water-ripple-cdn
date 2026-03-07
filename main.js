@@ -29,6 +29,7 @@ let radiobtn = document.querySelectorAll('.w-radio');
 function init(mask) {
   
     const bg = window.getComputedStyle(mask).backgroundImage;
+        console.log(mask)
     if (!bg) return;
 
     const imageSrc = bg.replace(/url\(["']?/, "").replace(/["']?\)$/, "");
