@@ -1,6 +1,6 @@
 function init() {
     //selector
-    let radiobtn = document.querySelectorAll('.w-radio');
+    let radiobtn = document.querySelectorAll('.cook-name');
         let mask = document.querySelector('.masked-image');
         let images=[...document.getElementsByClassName('member-bg-image')]
         const styleTag = document.createElement('style');
