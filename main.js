@@ -20,6 +20,7 @@ let radiobtn = document.querySelectorAll('.w-radio');
                 const targetImgNumber = memberMap[memberId];
                 console.log(memberId)
                 mask.setAttribute('data-background-image', memberId);
+                init(mask)
                 images.forEach(img => img.classList.add('hidden'));
                 if (imageMap[targetImgNumber]) {
                 imageMap[targetImgNumber].classList.remove('hidden');
@@ -150,5 +151,5 @@ function init(mask) {
     s.onload = init;
     document.body.appendChild(s);
   } else {
-    init();
+    init(mask);
   }   
