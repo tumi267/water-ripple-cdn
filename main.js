@@ -15,11 +15,11 @@ let radiobtn = document.querySelectorAll('.w-radio');
             Lesedi: 'lesedi'
         };
         const imageUrls = {
-          lerato: "https://cdn.prod.website-files.com/696f71293b9af01fb672ff8b/69a85cb583261bccbdf63eb5_elo.jpg",
-          ayanda: "https://cdn.prod.website-files.com/696f71293b9af01fb672ff8b/69a85cb6c5a41a97bfb8247f_Aya.png",
-          sim: "https://cdn.prod.website-files.com/696f71293b9af01fb672ff8b/69a85cb5896172322cd07eb2_sim.jpg",
-          kat: "https://cdn.prod.website-files.com/696f71293b9af01fb672ff8b/69a85cb6fce8b63d6648cbbb_kat.png",
-          lesedi: "https://cdn.prod.website-files.com/696f71293b9af01fb672ff8b/698581d200832bbd823a4e69_001b.png.jpg"
+          Lerato: "https://cdn.prod.website-files.com/696f71293b9af01fb672ff8b/69a85cb583261bccbdf63eb5_elo.jpg",
+          Ayanda: "https://cdn.prod.website-files.com/696f71293b9af01fb672ff8b/69a85cb6c5a41a97bfb8247f_Aya.png",
+          SIMLET: "https://cdn.prod.website-files.com/696f71293b9af01fb672ff8b/69a85cb5896172322cd07eb2_sim.jpg",
+          Katlego: "https://cdn.prod.website-files.com/696f71293b9af01fb672ff8b/69a85cb6fce8b63d6648cbbb_kat.png",
+          Katlego: "https://cdn.prod.website-files.com/696f71293b9af01fb672ff8b/698581d200832bbd823a4e69_001b.png.jpg"
         };
         radiobtn.forEach(e => {
             e.addEventListener('mouseover', () => {
@@ -27,7 +27,7 @@ let radiobtn = document.querySelectorAll('.w-radio');
                 const targetImgNumber = memberMap[memberId];
                 
                 mask.setAttribute('data-background-image', memberId);
-                init(imageUrls[memberId])
+                init(imageUrls.memberId)
                 images.forEach(img => img.classList.add('hidden'));
                 if (imageMap[targetImgNumber]) {
                 imageMap[targetImgNumber].classList.remove('hidden');
