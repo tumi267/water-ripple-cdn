@@ -48,7 +48,7 @@ let radiobtn = document.querySelectorAll('.w-radio');
 //     mask.appendChild(canvas);
 //     mask.style.backgroundImage = "none";
 function init(imageSrc) {
-
+console.log(imageSrc)
     if (!imageSrc) return;
 
     const canvas = document.createElement("canvas");
