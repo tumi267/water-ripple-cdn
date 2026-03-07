@@ -1,21 +1,17 @@
 let radiobtn = document.querySelectorAll('.w-radio');
         let mask = document.querySelector('.masked-image');
         let images=[...document.getElementsByClassName('member-bg-image')]
-        const styleTag = document.createElement('style');
-        document.head.appendChild(styleTag);
-        const sheet = styleTag.sheet;
-        sheet.insertRule('.hidden { display: none; }', 0);
         const imageMap = {}
         images.forEach(img => {
             imageMap[img.dataset.memberBg] = img;
-            if(img.dataset.memberBg === 'lerato') return
+            if(img.getAttribute('data-member-bg')=='lerato')return
             img.classList.add('hidden')
         });
         const memberMap = {
             Lerato: 'lerato',
             Ayanda: 'ayanda',
             SIMLET: 'sim',
-            Katlego: 'kat',
+            Katlego:'kat',
             Lesedi: 'lesedi'
         };
         radiobtn.forEach(e => {
