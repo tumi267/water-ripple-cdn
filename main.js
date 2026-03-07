@@ -34,20 +34,29 @@ let radiobtn = document.querySelectorAll('.w-radio');
                 }
                 })
                 })
-function init(mask) {
+// function init(mask) {
   
-    // const bg = window.getComputedStyle(mask).backgroundImage;
-    const bg=mask;
-    if (!bg) return;
+//     // const bg = window.getComputedStyle(mask).backgroundImage;
+//     const bg=mask;
+//     if (!bg) return;
 
-    const imageSrc = bg.replace(/url\(["']?/, "").replace(/["']?\)$/, "");
+//     const imageSrc = bg.replace(/url\(["']?/, "").replace(/["']?\)$/, "");
+
+//     const canvas = document.createElement("canvas");
+//     canvas.style.width = "100%";
+//     canvas.style.height = "100%";
+//     mask.appendChild(canvas);
+//     mask.style.backgroundImage = "none";
+function init(imageSrc) {
+
+    if (!imageSrc) return;
 
     const canvas = document.createElement("canvas");
     canvas.style.width = "100%";
     canvas.style.height = "100%";
-    mask.appendChild(canvas);
-    mask.style.backgroundImage = "none";
 
+    mask.innerHTML = ""; // remove old canvas
+    mask.appendChild(canvas);
     let time = 0;
     let rippleStrength = 0;
 
