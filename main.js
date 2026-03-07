@@ -26,11 +26,9 @@ let radiobtn = document.querySelectorAll('.w-radio');
                 }
                 })
                 })
-function init() {
-
-    document.querySelectorAll(".masked-image").forEach((item) => {
-      
-    const bg = window.getComputedStyle(item).backgroundImage;
+function init(mask) {
+  
+    const bg = window.getComputedStyle(mask).backgroundImage;
     if (!bg) return;
 
     const imageSrc = bg.replace(/url\(["']?/, "").replace(/["']?\)$/, "");
@@ -141,7 +139,7 @@ function init() {
 
     animate();
   })
-  })
+
 };
 
      
