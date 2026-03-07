@@ -28,7 +28,7 @@ let radiobtn = document.querySelectorAll('.w-radio');
                 })
                 })
 function init(mask) {
-  
+  console.log(mask)
     const bg = window.getComputedStyle(mask).backgroundImage;
         console.log(mask)
     if (!bg) return;
