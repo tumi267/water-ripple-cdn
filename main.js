@@ -8,7 +8,7 @@
     const maskHalfWidthVw = 10; 
     let isClicked = false;
 window.addEventListener('mousemove', (e) => {
-        if(window.innerWidth<990)return
+        if(window.innerWidth<991)return
     if (isClicked) return;
     // 1. Convert mouse X position to VW units
     const xVw = (e.clientX / window.innerWidth) * 100;
