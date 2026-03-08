@@ -83,9 +83,10 @@ radiobtn.forEach(e => {
             imageMap[targetImgNumber].classList.remove('hidden');
             if(window.innerWidth>990){
             document.getElementsByClassName('team-member-mask')[0].classList.add('largeimg')
+            }
             document.getElementsByClassName('team-member-mask')[0].style.transform = '';
             document.getElementsByClassName('masked-image')[0].style.transform = '';
-        }}
+        }
     });
 });
 
