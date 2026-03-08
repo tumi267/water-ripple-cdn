@@ -82,6 +82,7 @@ radiobtn.forEach(e => {
         if (imageMap[targetImgNumber]) {
             imageMap[targetImgNumber].classList.remove('hidden');
             if(window.innerWidth>990){
+                    console.log('screen large')
             document.getElementsByClassName('team-member-mask')[0].classList.add('largeimg')
             }
             document.getElementsByClassName('team-member-mask')[0].style.transform = '';
