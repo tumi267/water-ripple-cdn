@@ -70,6 +70,7 @@ radiobtn.forEach(e => {
         }
     });
     e.addEventListener('click', () => {
+        if(window.innerWidth<991)return
         isClicked = true;
         const memberId = e.id;
         const targetImgNumber = memberMap[memberId];
