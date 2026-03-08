@@ -1,4 +1,26 @@
-let radiobtn = document.querySelectorAll('.w-radio');
+const maskParent = document.querySelector('.team-member-mask');
+const maskChild = document.querySelector('.masked-image');
+
+// This must be exactly HALF of the .team-member-mask's CSS width (20vw / 2 = 10)
+const maskHalfWidthVw = 10; 
+
+window.addEventListener('mousemove', (e) => {
+    // 1. Convert mouse X position to VW units
+    const xVw = (e.clientX / window.innerWidth) * 100;
+    
+    // 2. Subtract the 10vw offset to pull the div's center to the mouse
+    const centeredX = xVw - maskHalfWidthVw;
+    
+    // 3. Apply the Counter-Translate
+    // Parent follows the mouse with the offset applied
+    maskParent.style.transform = `translate3d(${centeredX.toFixed(3)}vw, 0px, 0px)`;
+    
+    // Child moves the exact opposite way to keep the image stationary
+    maskChild.style.transform = `translate3d(-${centeredX.toFixed(3)}vw, 0px, 0px)`;
+});
+
+// on hover changes
+let radiobtn2 = document.querySelectorAll('.w-radio');
 let mask = document.querySelector('.masked-image');
 let images = [...document.getElementsByClassName('member-bg-image')];
 const imageMap = {};
@@ -25,7 +47,7 @@ const imageUrls = {
     Lesedi: "https://cdn.prod.website-files.com/696f71293b9af01fb672ff8b/698581d200832bbd823a4e69_001b.png.jpg"
 };
 
-radiobtn.forEach(e => {
+radiobtn2.forEach(e => {
     e.addEventListener('mouseover', () => {
         const memberId = e.id;
         const targetImgNumber = memberMap[memberId];
