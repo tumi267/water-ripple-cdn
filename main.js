@@ -1,4 +1,5 @@
-  // Select the element you want to follow the mouse
+        document.addEventListener('DOMContentLoaded', () => {
+   // Select the element you want to follow the mouse
    const maskParent = document.querySelector('.team-member-mask');
     const maskChild = document.querySelector('.masked-image');
 
@@ -188,3 +189,4 @@ if (typeof THREE === "undefined") {
 } else {
     init(imageUrls.Lerato);
 }
+})
