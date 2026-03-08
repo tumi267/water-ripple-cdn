@@ -27,7 +27,7 @@ let radiobtn = document.querySelectorAll('.w-radio');
                 const targetImgNumber = memberMap[memberId];
                 
                 mask.setAttribute('data-background-image', memberId);
-                init(imageUrls[memberId])
+                // init(imageUrls[memberId])
                 images.forEach(img => img.classList.add('hidden'));
                 if (imageMap[targetImgNumber]) {
                 imageMap[targetImgNumber].classList.remove('hidden');
@@ -35,118 +35,120 @@ let radiobtn = document.querySelectorAll('.w-radio');
                 })
                 })
 function init(mask) {
-  console.log('fire')
-    // const bg = window.getComputedStyle(mask).backgroundImage;
-    const bg=mask;
-    if (!bg) return;
+  document.querySelectorAll(".masked-image").forEach((item) => {
 
-    const imageSrc = bg.replace(/url\(["']?/, "").replace(/["']?\)$/, "");
+const bg = item.style.backgroundImage;
+console.log(bg)
+if (!bg) return;
 
-    const canvas = document.createElement("canvas");
-    canvas.style.width = "100%";
-    canvas.style.height = "100%";
-    mask.appendChild(canvas);
-    mask.style.backgroundImage = "none";
-    let time = 0;
-    let rippleStrength = 0;
+const imageSrc = bg.replace(/url\(["']?/, "").replace(/["']?\)$/, "");
 
-    const mouse = new THREE.Vector2(0.5, 0.5);
-    const lastMouse = new THREE.Vector2(0.5, 0.5);
+const canvas = document.createElement("canvas");
+canvas.style.width = "100%";
+canvas.style.height = "100%";
+item.appendChild(canvas);
+item.style.backgroundImage = "none";
 
-    const renderer = new THREE.WebGLRenderer({
-      canvas: canvas,
-      antialias: true,
-      alpha: true,
-    });
+let time = 0;
+let rippleStrength = 0;
 
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+const mouse = new THREE.Vector2(0.5, 0.5);
+const lastMouse = new THREE.Vector2(0.5, 0.5);
 
-    const scene = new THREE.Scene();
-    const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 10);
-    camera.position.z = 1;
+const renderer = new THREE.WebGLRenderer({
+  canvas: canvas,
+  antialias: true,
+  alpha: true,
+});
 
-    item.addEventListener("mousemove", (e) => {
-      const rect = canvas.getBoundingClientRect();
-      const x = (e.clientX - rect.left) / rect.width;
-      const y = 1 - (e.clientY - rect.top) / rect.height;
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-      mouse.set(x, y);
+const scene = new THREE.Scene();
+const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 10);
+camera.position.z = 1;
 
-      const movement = mouse.distanceTo(lastMouse);
-      rippleStrength += movement * 6.0;
-      rippleStrength = Math.min(rippleStrength, 8.0);
+item.addEventListener("mousemove", (e) => {
+  const rect = canvas.getBoundingClientRect();
+  const x = (e.clientX - rect.left) / rect.width;
+  const y = 1 - (e.clientY - rect.top) / rect.height;
 
-      lastMouse.copy(mouse);
-    });
+  mouse.set(x, y);
 
-  new THREE.TextureLoader().load(imageSrc, (texture) => {
+  const movement = mouse.distanceTo(lastMouse);
+  rippleStrength += movement * 6.0;
+  rippleStrength = Math.min(rippleStrength, 8.0);
 
-    texture.flipY = true;
+  lastMouse.copy(mouse);
+});
 
-    const geometry = new THREE.PlaneGeometry(2, 2);
+new THREE.TextureLoader().load(imageSrc, (texture) => {
 
-    const material = new THREE.ShaderMaterial({
-      uniforms: {
-        uTexture: { value: texture },
-        uTime: { value: 0 },
-        uMouse: { value: mouse },
-        uStrength: { value: 0 },
-      },
-      vertexShader: `
-        varying vec2 vUv;
-        void main() {
-          vUv = uv;
-          gl_Position = vec4(position,1.0);
-        }
-      `,
-      fragmentShader: `
-        precision highp float;
-        uniform sampler2D uTexture;
-        uniform float uTime;
-        uniform vec2 uMouse;
-        uniform float uStrength;
-        varying vec2 vUv;
+  texture.flipY = true;
 
-        void main() {
-          vec2 uv = vUv;
-          vec2 diff = uv - uMouse;
-          float dist = length(diff);
+  const geometry = new THREE.PlaneGeometry(2, 2);
 
-          float ripple =
-            sin(dist * 20.0 - uTime * 6.0) *
-            exp(-dist * 8.0) *
-            0.03 *
-            uStrength;
+  const material = new THREE.ShaderMaterial({
+    uniforms: {
+      uTexture: { value: texture },
+      uTime: { value: 0 },
+      uMouse: { value: mouse },
+      uStrength: { value: 0 },
+    },
+    vertexShader: `
+      varying vec2 vUv;
+      void main() {
+        vUv = uv;
+        gl_Position = vec4(position,1.0);
+      }
+    `,
+    fragmentShader: `
+      precision highp float;
+      uniform sampler2D uTexture;
+      uniform float uTime;
+      uniform vec2 uMouse;
+      uniform float uStrength;
+      varying vec2 vUv;
 
-          uv += normalize(diff) * ripple;
-          gl_FragColor = texture2D(uTexture, uv);
-        }
-      `,
-    });
+      void main() {
+        vec2 uv = vUv;
+        vec2 diff = uv - uMouse;
+        float dist = length(diff);
 
-    const mesh = new THREE.Mesh(geometry, material);
-    scene.add(mesh);
+        float ripple =
+          sin(dist * 20.0 - uTime * 6.0) *
+          exp(-dist * 8.0) *
+          0.03 *
+          uStrength;
 
-    function resize() {
-      const w = canvas.clientWidth;
-      const h = canvas.clientHeight;
-      renderer.setSize(w, h, false);
-    }
+        uv += normalize(diff) * ripple;
+        gl_FragColor = texture2D(uTexture, uv);
+      }
+    `,
+  });
 
-    function animate() {
-      resize();
-      time += 0.016;
-      rippleStrength *= 0.97;
+  const mesh = new THREE.Mesh(geometry, material);
+  scene.add(mesh);
 
-      material.uniforms.uTime.value = time;
-      material.uniforms.uStrength.value = rippleStrength;
+  function resize() {
+    const w = canvas.clientWidth;
+    const h = canvas.clientHeight;
+    renderer.setSize(w, h, false);
+  }
 
-      renderer.render(scene, camera);
-      requestAnimationFrame(animate);
-    }
+  function animate() {
+    resize();
+    time += 0.016;
+    rippleStrength *= 0.97;
 
-    animate();
-  })
+    material.uniforms.uTime.value = time;
+    material.uniforms.uStrength.value = rippleStrength;
+
+    renderer.render(scene, camera);
+    requestAnimationFrame(animate);
+  }
+
+  animate();
+});
 
 };
 
