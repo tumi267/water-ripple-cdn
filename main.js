@@ -57,7 +57,7 @@ radiobtn.forEach(e => {
         const targetImgNumber = memberMap[memberId];
 
         mask.setAttribute('data-background-image', memberId);
-        init(imageUrls[memberId]); // This passes the URL string correctly
+        startRippleEffect(imageUrls[memberId]); // This passes the URL string correctly
 
         images.forEach(img => img.classList.add('hidden'));
         if (imageMap[targetImgNumber]) {
@@ -73,7 +73,7 @@ radiobtn.forEach(e => {
         const targetImgNumber = memberMap[memberId];
 
         mask.setAttribute('data-background-image', memberId);
-        init(imageUrls[memberId]); // This passes the URL string correctly
+        startRippleEffect(imageUrls[memberId]); // This passes the URL string correctly
 
         images.forEach(img => img.classList.add('hidden'));
         if (imageMap[targetImgNumber]) {
@@ -86,7 +86,7 @@ radiobtn.forEach(e => {
     });
 });
 
-function init(imgUrl) {
+function startRippleEffect(imgUrl) {
     // Check if imgUrl is a string (prevents error when s.onload passes an Event)
     if (typeof imgUrl !== 'string') return;
 
@@ -184,9 +184,9 @@ function init(imgUrl) {
 if (typeof THREE === "undefined") {
     const s = document.createElement("script");
     s.src = "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js";
-    s.onload = () => init(imageUrls.Lerato); // Pass specific URL, not the Event object
+    s.onload = () => startRippleEffect(imageUrls.Lerato); // Pass specific URL, not the Event object
     document.body.appendChild(s);
 } else {
-    init(imageUrls.Lerato);
+    startRippleEffect(imageUrls.Lerato);
 }
 })
