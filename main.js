@@ -70,7 +70,7 @@ radiobtn.forEach(e => {
         }
     });
     e.addEventListener('click', () => {
-        if(window.innerWidth<991)return
+        if(window.innerWidth>991){
         isClicked = true;
         const memberId = e.id;
         const targetImgNumber = memberMap[memberId];
@@ -85,7 +85,7 @@ radiobtn.forEach(e => {
             document.getElementsByClassName('team-member-mask')[0].classList.add('largeimg')
             document.getElementsByClassName('team-member-mask')[0].style.transform = '';
             document.getElementsByClassName('masked-image')[0].style.transform = '';
-        }
+        }}
     });
 });
 
