@@ -70,7 +70,7 @@ radiobtn.forEach(e => {
         }
     });
     e.addEventListener('click', () => {
-        if(window.innerWidth>991){
+        
         isClicked = true;
         const memberId = e.id;
         const targetImgNumber = memberMap[memberId];
@@ -81,7 +81,7 @@ radiobtn.forEach(e => {
         images.forEach(img => img.classList.add('hidden'));
         if (imageMap[targetImgNumber]) {
             imageMap[targetImgNumber].classList.remove('hidden');
-            
+            if(window.innerWidth>990){
             document.getElementsByClassName('team-member-mask')[0].classList.add('largeimg')
             document.getElementsByClassName('team-member-mask')[0].style.transform = '';
             document.getElementsByClassName('masked-image')[0].style.transform = '';
