@@ -1,10 +1,12 @@
-const maskParent = document.querySelector('.team-member-mask');
-const maskChild = document.querySelector('.masked-image');
+  // Select the element you want to follow the mouse
+   const maskParent = document.querySelector('.team-member-mask');
+    const maskChild = document.querySelector('.masked-image');
 
 // This must be exactly HALF of the .team-member-mask's CSS width (20vw / 2 = 10)
-const maskHalfWidthVw = 10; 
-
+    const maskHalfWidthVw = 10; 
+    let isClicked = false;
 window.addEventListener('mousemove', (e) => {
+    if (isClicked) return;
     // 1. Convert mouse X position to VW units
     const xVw = (e.clientX / window.innerWidth) * 100;
     
@@ -19,8 +21,8 @@ window.addEventListener('mousemove', (e) => {
     maskChild.style.transform = `translate3d(-${centeredX.toFixed(3)}vw, 0px, 0px)`;
 });
 
-// on hover changes
-let radiobtn2 = document.querySelectorAll('.w-radio');
+
+let radiobtn = document.querySelectorAll('.w-radio');
 let mask = document.querySelector('.masked-image');
 let images = [...document.getElementsByClassName('member-bg-image')];
 const imageMap = {};
@@ -47,8 +49,9 @@ const imageUrls = {
     Lesedi: "https://cdn.prod.website-files.com/696f71293b9af01fb672ff8b/698581d200832bbd823a4e69_001b.png.jpg"
 };
 
-radiobtn2.forEach(e => {
+radiobtn.forEach(e => {
     e.addEventListener('mouseover', () => {
+        isClicked = false;
         const memberId = e.id;
         const targetImgNumber = memberMap[memberId];
 
@@ -58,6 +61,26 @@ radiobtn2.forEach(e => {
         images.forEach(img => img.classList.add('hidden'));
         if (imageMap[targetImgNumber]) {
             imageMap[targetImgNumber].classList.remove('hidden');
+
+
+            document.getElementsByClassName('team-member-mask')[0].classList.remove('largeimg')
+        }
+    });
+    e.addEventListener('click', () => {
+        isClicked = true;
+        const memberId = e.id;
+        const targetImgNumber = memberMap[memberId];
+
+        mask.setAttribute('data-background-image', memberId);
+        init(imageUrls[memberId]); // This passes the URL string correctly
+
+        images.forEach(img => img.classList.add('hidden'));
+        if (imageMap[targetImgNumber]) {
+            imageMap[targetImgNumber].classList.remove('hidden');
+            
+            document.getElementsByClassName('team-member-mask')[0].classList.add('largeimg')
+            document.getElementsByClassName('team-member-mask')[0].style.transform = '';
+            document.getElementsByClassName('masked-image')[0].style.transform = '';
         }
     });
 });
