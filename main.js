@@ -27,7 +27,7 @@ let radiobtn = document.querySelectorAll('.w-radio');
                 const targetImgNumber = memberMap[memberId];
                 
                 mask.setAttribute('data-background-image', memberId);
-                // init(imageUrls[memberId])
+                init(imageUrls[memberId])
                 images.forEach(img => img.classList.add('hidden'));
                 if (imageMap[targetImgNumber]) {
                 imageMap[targetImgNumber].classList.remove('hidden');
@@ -36,9 +36,9 @@ let radiobtn = document.querySelectorAll('.w-radio');
                 })
 function init(mask) {
   document.querySelectorAll(".masked-image").forEach((item) => {
+item.innerHTML = ''; 
+const bg = mask
 
-const bg = item.style.backgroundImage;
-console.log(bg)
 if (!bg) return;
 
 const imageSrc = bg.replace(/url\(["']?/, "").replace(/["']?\)$/, "");
