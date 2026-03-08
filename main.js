@@ -1,4 +1,5 @@
         document.addEventListener('DOMContentLoaded', () => {
+                console.log("Script is alive and DOM is ready!");
    // Select the element you want to follow the mouse
    const maskParent = document.querySelector('.team-member-mask');
     const maskChild = document.querySelector('.masked-image');
