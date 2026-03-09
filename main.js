@@ -97,6 +97,7 @@ function startRippleEffect(imgUrl) {
 
     document.querySelectorAll(".masked-image").forEach((item) => {
         item.innerHTML = ''; // Clear previous canvas to prevent WebGL crash
+        item.style.backgroundImage = `url("${imgUrl}")`;
         const imageSrc = imgUrl.replace(/url\(["']?/, "").replace(/["']?\)$/, "");
 
         const canvas = document.createElement("canvas");
