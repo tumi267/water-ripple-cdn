@@ -217,9 +217,9 @@ function preloadTextures(callback) {
 if (typeof THREE === "undefined") {
     const s = document.createElement("script");
     s.src = "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js";
-    s.onload = () => preloadTextures(() => startRippleEffect(imageUrls.Lerato));
+    s.onload = () => init(imageUrls.Lerato); 
     document.body.appendChild(s);
 } else {
-    preloadTextures(() => startRippleEffect(imageUrls.Lerato));
+    init(imageUrls.Lerato);
 }
 })
