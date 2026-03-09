@@ -114,7 +114,7 @@ function startRippleEffect(imgUrl) {
             antialias: true,
             alpha: true,
         });
-
+        renderer.setClearColor(0x000000, 1);
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
         const scene = new THREE.Scene();
         const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 10);
@@ -186,12 +186,39 @@ function startRippleEffect(imgUrl) {
 }
 
 // Fixed Loader Logic
+const textures = {}; // Global store for loaded textures
+let material; // Global reference for your shader material
+
+function preloadTextures(callback) {
+    const manager = new THREE.LoadingManager();
+    const loader = new THREE.TextureLoader(manager);
+
+    // Loop through your imageUrls object
+    Object.entries(imageUrls).forEach(([name, url]) => {
+        loader.load(url, (texture) => {
+            texture.flipY = true; // Match Three.js coordinate system
+            textures[name] = texture;
+        });
+    });
+
+    // This fires ONLY after ALL textures are finished loading
+    manager.onLoad = () => {
+        console.log("All textures preloaded!");
+        callback(); 
+    };
+
+    manager.onError = (url) => {
+        console.error('There was an error loading ' + url);
+    };
+}
+
+// Fixed Loader Execution
 if (typeof THREE === "undefined") {
     const s = document.createElement("script");
     s.src = "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js";
-    s.onload = () => startRippleEffect(imageUrls.Lerato); // Pass specific URL, not the Event object
+    s.onload = () => preloadTextures(() => init(imageUrls.Lerato));
     document.body.appendChild(s);
 } else {
-    startRippleEffect(imageUrls.Lerato);
+    preloadTextures(() => init(imageUrls.Lerato));
 }
 })
