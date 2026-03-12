@@ -241,9 +241,17 @@ document.addEventListener('DOMContentLoaded', ()=>{
                         callback();
                         const loader = document.getElementById("vectorLoader");
                             if (loader) loader.remove();
+                      // setTimeout(() => {
+                      // const loader = document.getElementById("vectorLoader");
+                      // if (loader) {
+                      //     loader.style.transition = "opacity 0.6s ease";
+                      //     loader.style.opacity = "0";
+                      //     setTimeout(() => {
+                      //         loader.remove();
+                      //     }, 600);
+                      // }
+                      // }, 800);
                     }
-                    ;
-
                     manager.onError = (url)=>{
                         console.error('There was an error loading ' + url);
                     }
